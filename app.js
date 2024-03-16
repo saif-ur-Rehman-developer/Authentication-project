@@ -5,6 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 
+// import these 
+
+const Session = require('express-session')
+const flash = require('connect-flash')
+const passport = require('passport');
+
 
 
 var indexRouter = require('./routes/index');
@@ -15,6 +21,26 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
+
+//You have to write session code after setup of view engin and befor logger
+// from line 29 to 37 code for authenticate 
+
+app.use(Session({
+  resave:false,
+  saveUninitialized:false,
+  secret:"Hello g"
+}))
+app.use(passport.initialize());
+app.use(passport.session())
+passport.serializeUser(usersRouter.serializeUser());
+passport.deserializeUser(usersRouter.deserializeUser())
+
+
+app.use(flash())
+
+
 
 app.use(logger('dev'));
 app.use(express.json());

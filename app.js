@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 
 
 //You have to write session code after setup of view engin and befor logger
-// from line 29 to 37 code for authenticate 
+// from line 29 to 41 code for authenticate 
 
 app.use(Session({
   resave:false,
